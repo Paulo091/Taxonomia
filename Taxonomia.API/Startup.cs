@@ -43,8 +43,11 @@ namespace Taxonomia.API
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
+            {               
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Taxonomia}/{action=Index}/{id?}"
+                );
             });
         }
     }
