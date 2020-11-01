@@ -10,15 +10,11 @@ namespace Taxonomia.API.Controllers.Interfaces
     {
         public object ListarTodos();
 
-        public object Adicionar<T>([FromBody] T value);
+        public object Adicionar<T>(T value);
 
         public object Remover<T>([FromBody] T value);
         
         public object Alterar<T>([FromBody] T value);
         public object Pesquisar(string value);
-
-
-       
-
     }
 }

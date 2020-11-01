@@ -4,17 +4,42 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Taxonomia.API.Controllers.Interfaces;
 using Taxonomia.API.Models;
+using Taxonomia.API.Repositorios;
+using Taxonomia.API.Services;
 
 namespace Taxonomia.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DominioController : ControllerBase, IController
     {
-        [HttpGet("listar-dominios")] //https://localhost:44354/Dominio/listar-dominios
+
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] Usuarios model)
+        {
+            var user = Usuario.Get(model.Username, model.Password);
+
+            if (user == null)
+                return NotFound(new { message = "Usuario ou senha inválida" });
+
+            var token = TokenService.GenerateToken(user);
+            user.Password = "";
+
+            return new
+            {
+                user = user,
+                token = token
+            };
+        }
+
+        [HttpGet("listar-dominios")] //https://localhost:44354/api/Dominio/listar-dominios
         public object ListarTodos()
         {
 
@@ -31,8 +56,10 @@ namespace Taxonomia.API.Controllers
         }
 
         // POST api/<DominioController>
-        [HttpPost("Adicionar")]
-        public object Adicionar<Dominio>([FromBody] Dominio value) //https://localhost:44354/Dominio/Adicionar
+        [HttpPost]
+        [Route("AdicionarItem")]
+        [Authorize]
+        public object Adicionar<Dominio>([FromBody] Dominio value) //https://localhost:44354/api/Dominio/Adicionar
         {
             return new
             {
