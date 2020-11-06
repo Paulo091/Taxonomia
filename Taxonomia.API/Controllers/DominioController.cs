@@ -16,7 +16,7 @@ namespace Taxonomia.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DominioController : ControllerBase, IController
+    public class DominioController : ControllerBase, ITaxonomiaDAO<Dominio>
     {
 
         [HttpPost]
@@ -59,29 +59,13 @@ namespace Taxonomia.API.Controllers
         [HttpPost]
         [Route("AdicionarItem")]
         [Authorize]
-        public object Adicionar<Dominio>([FromBody] Dominio value) //https://localhost:44354/api/Dominio/Adicionar
+        public object Adicionar([FromBody] Dominio value) //https://localhost:44354/api/Dominio/Adicionar
         {
             return new
             {
                 Status = 1
             };
         }
-
-        public object Remover<T>([FromBody] T value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Alterar<T>([FromBody] T value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Pesquisar(string value)
-        {
-            throw new NotImplementedException();
-        }
-
 
         // PUT api/<DominioController>/5
         [HttpPut("{id}")]
@@ -95,5 +79,24 @@ namespace Taxonomia.API.Controllers
         {
         }
 
+        public object Excluir(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Alterar([FromBody] Dominio value, int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Selecionar([FromBody] Dominio value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ListarColecao([FromBody] Dominio value, int quantidade)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
