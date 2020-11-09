@@ -18,27 +18,6 @@ namespace Taxonomia.API.Controllers
     [ApiController]
     public class DominioController : ControllerBase, ITaxonomiaDAO<Dominio>
     {
-
-        [HttpPost]
-        [Route("login")]
-        [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] Usuarios model)
-        {
-            var user = Usuario.Get(model.Username, model.Password);
-
-            if (user == null)
-                return NotFound(new { message = "Usuario ou senha inválida" });
-
-            var token = TokenService.GenerateToken(user);
-            user.Password = "";
-
-            return new
-            {
-                user = user,
-                token = token
-            };
-        }
-
         [HttpGet("listar-dominios")] //https://localhost:44354/api/Dominio/listar-dominios
         public object ListarTodos()
         {

@@ -1,1 +1,0 @@
-http://www.macoratti.net/18/05/aspcore_cors1.htm
