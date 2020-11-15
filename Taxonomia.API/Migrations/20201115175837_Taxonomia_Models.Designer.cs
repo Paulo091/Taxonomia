@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taxonomia.API.Context;
 
 namespace Taxonomia.API.Migrations
 {
     [DbContext(typeof(TaxonomiaContext))]
-    partial class TaxonomiaContextModelSnapshot : ModelSnapshot
+    [Migration("20201115175837_Taxonomia_Models")]
+    partial class Taxonomia_Models
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

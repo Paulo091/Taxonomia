@@ -10,6 +10,15 @@ namespace Taxonomia.API.Context
     public class TaxonomiaContext : DbContext
     {
         public DbSet<Dominio> Dominios { get; set; }
+        public DbSet<Reino> Reinos { get; set; }
+        public DbSet<Filo> Filos { get; set; }
+        public DbSet<Classe> Classes { get; set; }
+        public DbSet<Ordem> Ordens { get; set; }
+        public DbSet<Familia> Familias { get; set; }
+        public DbSet<Genero> Generos { get; set; }
+
+        public DbSet<Especie> Especies { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
