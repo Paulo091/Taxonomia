@@ -19,33 +19,30 @@ namespace Taxonomia.API.Controllers
     [ApiController]
     public class DominioController : ControllerBase, ITaxonomiaDAO<Dominio>
     {
-        [HttpGet("listar-dominios")] //https://localhost:44354/api/Dominio/listar-dominios
-        public object ListarTodos()
+        [HttpGet("listar-dominios")] 
+        [Authorize]
+        public object ListarTodos() //https://localhost:44354/api/Dominio/listar-dominios
         {           
-            string[] Dominios = new String[3];
+             using (var contexto = new TaxonomiaContext())
+            {
+                var resultado = contexto.Dominios.OrderBy(x => x.ID).ToList();
 
-            Dominios[0] = "Eucaria";
-            Dominios[1] = "Arqueia";
-            Dominios[2] = "Bacteria";
-
-            var json = JsonSerializer.Serialize(Dominios);
-
-            return json;
-     
+                return JsonSerializer.Serialize(resultado);
+            }     
         }
 
         // POST api/<DominioController>
         [HttpPost]
         [Route("AdicionarItem")]
         [Authorize]
-        public object Adicionar([FromBody] Dominio dominio) //https://localhost:44354/api/Dominio/AdicionarItem
+        public async Task<object> Adicionar([FromBody] Dominio dominio) //https://localhost:44354/api/Dominio/AdicionarItem
         {
             try
             {
                 using (var contexto = new TaxonomiaContext())
                 {
                     contexto.Dominios.Add(dominio);
-                    contexto.SaveChanges();
+                    await contexto.SaveChangesAsync();
                 }
 
                 return new
@@ -71,7 +68,7 @@ namespace Taxonomia.API.Controllers
 
         [HttpDelete]
         [Route("DeletarItem")]
-        public object Excluir(int ID)
+        public async Task<object> Excluir(int ID)
         {
             try
             {
@@ -97,17 +94,17 @@ namespace Taxonomia.API.Controllers
             }
         }
 
-        public object Alterar([FromBody] Dominio value, int ID)
+        public async Task<object> Alterar([FromBody] Dominio value, int ID)
         {
             throw new NotImplementedException();
         }
 
-        public object Selecionar([FromBody] Dominio value)
+        public async Task<object> Selecionar([FromBody] Dominio value)
         {
             throw new NotImplementedException();
         }
 
-        public object ListarColecao([FromBody] Dominio value, int quantidade)
+        public async Task<object> ListarColecao([FromBody] Dominio value, int quantidade)
         {
             throw new NotImplementedException();
         }

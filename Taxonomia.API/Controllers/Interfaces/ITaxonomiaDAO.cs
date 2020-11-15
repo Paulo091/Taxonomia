@@ -8,10 +8,10 @@ namespace Taxonomia.API.Controllers.Interfaces
 {
     public interface ITaxonomiaDAO<T>
     {
-        public object Adicionar([FromBody] T value);
-        public object Excluir(int ID);        
-        public object Alterar([FromBody] T value, int ID);
-        public object Selecionar([FromBody] T value);
-        public object ListarColecao([FromBody] T value,int quantidade);
+        Task<object> Adicionar([FromBody] T value);
+        Task<object> Excluir(int ID);
+        Task<object> Alterar([FromBody] T value, int ID);
+        Task<object> Selecionar([FromBody] T value);
+        public object ListarTodos();
     }
 }
