@@ -16,7 +16,6 @@ namespace Taxonomia.API.Context
         public DbSet<Ordem> Ordens { get; set; }
         public DbSet<Familia> Familias { get; set; }
         public DbSet<Genero> Generos { get; set; }
-
         public DbSet<Especie> Especies { get; set; }
 
 

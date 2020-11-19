@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Taxonomia.API.Context;
-using Taxonomia.API.Controllers.Interfaces;
+using Taxonomia.API.DAO.Interfaces;
+using Taxonomia.API.DAO;
 using Taxonomia.API.Models;
 using Taxonomia.API.Repositorios;
 using Taxonomia.API.Services;
@@ -19,6 +20,9 @@ namespace Taxonomia.API.Controllers
     [ApiController]
     public class DominioController : ControllerBase, ITaxonomiaDAO<Dominio>
     {
+        public TaxonomiaContext contexto;
+        public ContextoDAO<TaxonomiaContext> context;
+
         [HttpGet("listar-dominios")] 
         [Authorize]
         public object ListarTodos() //https://localhost:44354/api/Dominio/listar-dominios
@@ -39,11 +43,11 @@ namespace Taxonomia.API.Controllers
         {
             try
             {
-                using (var contexto = new TaxonomiaContext())
-                {
-                    contexto.Dominios.Add(dominio);
-                    await contexto.SaveChangesAsync();
-                }
+                contexto = new TaxonomiaContext();
+
+                context = new ContextoDAO<TaxonomiaContext>(contexto);
+
+                await context.InserirAsync(dominio);
 
                 return new
                 {

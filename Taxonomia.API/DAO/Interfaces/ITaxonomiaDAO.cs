@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Taxonomia.API.Controllers.Interfaces
+namespace Taxonomia.API.DAO.Interfaces
 {
     public interface ITaxonomiaDAO<T>
     {
